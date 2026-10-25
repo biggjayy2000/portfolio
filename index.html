@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Josiah Shields — Security Portfolio</title>
+<meta name="description" content="Two Python security tools from the same lab: one finds weaknesses in a web app, one detects the traffic those weaknesses leave behind.">
+<style>
+  :root {
+    --ink: #101828;
+    --body: #344054;
+    --muted: #667085;
+    --line: #e4e7ec;
+    --accent: #0f766e;
+    --accent-soft: #e6f4f1;
+    --attack: #b42318;
+    --attack-soft: #fdeceb;
+    --bg: #f7f8fa;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--body);
+    font-family: "Segoe UI", system-ui, -apple-system, Calibri, Arial, sans-serif;
+    font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  .hero { padding: 78px 0 40px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+  h1 { font-size: clamp(36px, 5.4vw, 54px); line-height: 1.06; letter-spacing: -1.3px; color: var(--ink); margin: 0 0 18px; max-width: 20ch; }
+  .lede { font-size: clamp(18px, 2.3vw, 20.5px); max-width: 52ch; margin: 0 0 28px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 26px; padding: 0; list-style: none; }
+  .stats li { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 7px 15px; font-size: 14px; }
+  .stats b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 9px;
+         text-decoration: none; font-size: 15px; font-weight: 600; border: 1px solid transparent; }
+  .btn.primary { background: var(--ink); color: #fff; }
+  .btn.primary:hover { background: #1d2939; }
+  .btn.ghost { color: var(--ink); border-color: #cfd4dc; }
+  .btn.ghost:hover { background: #fff; border-color: #98a2b3; }
+
+  section { padding: 44px 28px; }
+  .section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 22px; }
+  h2 { font-size: 13px; letter-spacing: 1.3px; text-transform: uppercase; color: var(--muted); margin: 0; font-weight: 700; }
+  .rule { flex: 1; height: 1px; background: var(--line); }
+
+  .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .project { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+  .project .body { padding: 24px 24px 20px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+         padding: 4px 10px; border-radius: 999px; margin-bottom: 12px; }
+  .tag.offence { background: var(--attack-soft); color: var(--attack); }
+  .tag.defence { background: var(--accent-soft); color: #0b5d56; }
+  .project h3 { margin: 0 0 8px; font-size: 22px; color: var(--ink); letter-spacing: -.4px; }
+  .project .tagline { margin: 0 0 14px; font-size: 15.5px; }
+  .project ul { margin: 0 0 16px; padding-left: 18px; font-size: 14.5px; }
+  .project li { margin-bottom: 6px; }
+  .project .shot { border-top: 1px solid var(--line); background: #f2f4f7; padding: 14px; }
+  .project .shot img { display: block; width: 100%; border-radius: 8px; }
+  .project .foot { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; padding: 0 24px 22px; }
+
+  .connect { background: var(--ink); color: #e7ecf2; border-radius: 18px; padding: 34px 36px; margin: 8px 0 0; }
+  .connect h3 { color: #fff; font-size: 20px; margin: 0 0 10px; letter-spacing: -.3px; }
+  .connect p { margin: 0; font-size: 15.5px; color: #cfd8e3; max-width: 66ch; }
+  .connect .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 20px;
+                    font-family: "Cascadia Mono", Consolas, monospace; font-size: 13px; }
+  .chain span { background: #1c2635; border: 1px solid #2b3648; color: #d9e2ec; padding: 7px 12px; border-radius: 8px; }
+  .chain .arrow { color: #7f8ea3; background: none; border: 0; padding: 0; }
+  .connect code { background: #243044; border-color: #34425a; color: #dbe4ee; }
+
+  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
+  .notes h3 { font-size: 16px; color: var(--ink); margin: 0 0 8px; }
+  .notes p { margin: 0 0 10px; font-size: 15.5px; }
+  code { font-family: "Cascadia Mono", Consolas, monospace; font-size: 13px; background: #f2f4f7;
+         border: 1px solid #e4e7ec; border-radius: 4px; padding: 1px 5px; }
+
+  footer { border-top: 1px solid var(--line); margin-top: 20px; padding: 34px 0 54px; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; align-items: baseline; }
+  .foot .name { color: var(--ink); font-weight: 700; font-size: 17px; }
+  .foot .role { color: var(--muted); font-size: 14px; display: block; font-weight: 400; margin-top: 2px; }
+  .foot nav { display: flex; flex-wrap: wrap; gap: 18px; font-size: 14.5px; }
+  .foot nav a { text-decoration: none; }
+  .foot nav a:hover { text-decoration: underline; }
+
+  @media (max-width: 880px) {
+    .projects, .notes { grid-template-columns: 1fr; }
+    .hero { padding-top: 54px; }
+    .connect { padding: 26px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <p class="eyebrow">Security tooling &middot; Python</p>
+  <h1>Two tools, one lab.</h1>
+  <p class="lede">A scanner that finds what is wrong with a web application, and a triage tool that
+    detects the traffic those weaknesses leave behind. Built end to end — code, tests, and the
+    report each one produces.</p>
+
+  <ul class="stats">
+    <li><b>2</b> projects</li>
+    <li><b>114</b> tests passing</li>
+    <li><b>15</b> checks and detection rules</li>
+    <li><b>0</b> dependencies</li>
+  </ul>
+
+  <div class="actions">
+    <a class="btn primary" href="#projects">See the projects</a>
+    <a class="btn ghost" href="https://drive.google.com/drive/folders/1srtrsu9i6lvEGg4dojatligUGTaoswh3?usp=sharing">Full portfolio (Drive)</a>
+  </div>
+</header>
+
+<section class="wrap" id="projects">
+  <div class="section-head"><h2>Offence and defence</h2><div class="rule"></div></div>
+
+  <div class="projects">
+
+    <article class="project">
+      <div class="body">
+        <span class="tag offence">Offence</span>
+        <h3>websec-audit</h3>
+        <!-- cards differ only by link; keep the hrefs below in sync with the repos -->
+        <p class="tagline">A web security scanner that refuses to run out of scope — and writes the report a tester actually hands over.</p>
+        <ul>
+          <li>Seven check families: headers, cookies, TLS, disclosure, methods, CORS, redirects.</li>
+          <li>Resolves the target and refuses anything out of scope <em>before</em> the first request.</li>
+          <li>17-finding demo report, exit code usable as a CI gate.</li>
+        </ul>
+        <p class="tagline" style="font-size:14px;color:#667085">Python &middot; urllib, ssl, socket &middot; 53 tests</p>
+      </div>
+      <div class="shot"><img src="images/websec-audit-terminal.png" alt="websec-audit scanning a demo server: 17 findings"></div>
+      <div class="foot">
+        <a href="https://github.com/biggjayy2000/websec-audit">View the code &rarr;</a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="body">
+        <span class="tag offence">Defence</span>
+        <h3>logtriage</h3>
+        <p class="tagline">Offline detection over SSH auth logs and web access logs, producing an incident summary an analyst can hand to a shift lead.</p>
+        <ul>
+          <li>Eight detection rules mapped to MITRE ATT&amp;CK, from brute force to injection.</li>
+          <li>Sliding windows, because bucketed time misses attacks across a boundary.</li>
+          <li>74-event sample incident: 1 Critical, 5 High, 2 Medium in ~10ms.</li>
+        </ul>
+        <p class="tagline" style="font-size:14px;color:#667085">Python &middot; stdlib only &middot; 61 tests</p>
+      </div>
+      <div class="shot"><img src="images/logtriage-run.png" alt="logtriage triaging sample logs: 1 Critical, 5 High, 2 Medium"></div>
+      <div class="foot">
+        <a href="https://github.com/biggjayy2000/logtriage">View the code &rarr;</a>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="connect">
+    <h3>Why they belong together</h3>
+    <p>Most junior portfolios show one side. These two share a lab and a point of view: the scanner
+      finds the exposed <code>.git</code> directory and the permissive CORS policy, and the triage tool
+      detects the requests that follow when someone finds them. Building both meant thinking like the
+      attacker and the analyst on the same afternoon.</p>
+    <div class="chain">
+      <span>probe the app</span><span class="arrow">&rarr;</span>
+      <span>find the weakness</span><span class="arrow">&rarr;</span>
+      <span>detect the traffic</span><span class="arrow">&rarr;</span>
+      <span>write the report</span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="section-head"><h2>How they were built</h2><div class="rule"></div></div>
+  <div class="notes">
+    <div>
+      <h3>Verified, not just written</h3>
+      <p>114 tests across the two projects, including end-to-end runs: one scans a deliberately
+        misconfigured server over a real socket, the other triages a 74-event incident and checks every
+        rule fires.</p>
+      <h3 style="margin-top:20px">The negative cases matter</h3>
+      <p>Every detection has a test proving it stays quiet on normal traffic. A rule that fires on
+        everything is not detection; it is noise with a severity label.</p>
+    </div>
+    <div>
+      <h3>Zero dependencies</h3>
+      <p>Standard library only, in both. Nothing to install, so they run on any machine with Python —
+        including a locked-down work laptop.</p>
+      <h3 style="margin-top:20px">Limits stated up front</h3>
+      <p>Passive scanning only, one URL per run; detection is threshold-based with no geolocation or
+        baselining. Both READMEs say so rather than implying more capability than exists.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="foot">
+    <div>
+      <span class="name">Josiah Shields</span>
+      <span class="role">Junior penetration tester &middot; entry-level cybersecurity</span>
+    </div>
+    <nav>
+      <a href="mailto:shieldsjay1117@gmail.com">shieldsjay1117@gmail.com</a>
+      <a href="https://linkedin.com/in/josiah-shields-3a095243a">LinkedIn</a>
+      <a href="https://drive.google.com/drive/folders/1srtrsu9i6lvEGg4dojatligUGTaoswh3?usp=sharing">Portfolio</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
