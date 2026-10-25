@@ -10,12 +10,10 @@ One page presenting two Python security tools built in the same home lab:
 Open `index.html` in a browser — the page is self-contained (no CDN, no external fonts), so it works
 from a `file://` path or any static host.
 
-## Publish it
+## Live
 
-The fastest route is GitHub Pages:
-
-1. Settings → Pages → Source: *Deploy from a branch* → `main` / `/ (root)`.
-2. The page appears at `https://biggjayy2000.github.io/<repo>/`.
+**<https://biggjayy2000.github.io/portfolio/>** — GitHub Pages, `main` / `/ (root)`, HTTPS enforced.
+Pushes to `main` rebuild it automatically.
 
 ## Contents
 
