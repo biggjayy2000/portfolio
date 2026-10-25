@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Josiah Shields — Security Portfolio</title>
-<meta name="description" content="Two Python security tools from the same lab: one finds weaknesses in a web app, one detects the traffic those weaknesses leave behind.">
+<meta name="description" content="Two Python security tools and six lab writeups from the same home lab: a web scanner, a log triage tool, Active Directory reconnaissance, an internal audit, incident analysis and SQL investigation.">
 <style>
   :root {
     --ink: #101828;
@@ -71,6 +71,17 @@
   .chain .arrow { color: #7f8ea3; background: none; border: 0; padding: 0; }
   .connect code { background: #243044; border-color: #34425a; color: #dbe4ee; }
 
+  .labs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 26px; }
+  .lab { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px;
+         display: flex; flex-direction: column; }
+  .lab .kicker { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+                 color: var(--muted); margin-bottom: 8px; }
+  .lab h3 { margin: 0 0 6px; font-size: 16.5px; color: var(--ink); letter-spacing: -.2px; }
+  .lab h3 a { color: inherit; text-decoration: none; }
+  .lab h3 a:hover { text-decoration: underline; }
+  .lab p { margin: 0 0 12px; font-size: 14.5px; }
+  .lab .go { margin-top: auto; font-size: 14px; text-decoration: none; }
+
   .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
   .notes h3 { font-size: 16px; color: var(--ink); margin: 0 0 8px; }
   .notes p { margin: 0 0 10px; font-size: 15.5px; }
@@ -86,7 +97,7 @@
   .foot nav a:hover { text-decoration: underline; }
 
   @media (max-width: 880px) {
-    .projects, .notes { grid-template-columns: 1fr; }
+    .projects, .labs, .notes { grid-template-columns: 1fr; }
     .hero { padding-top: 54px; }
     .connect { padding: 26px 22px; }
   }
@@ -102,14 +113,16 @@
     report each one produces.</p>
 
   <ul class="stats">
-    <li><b>2</b> projects</li>
+    <li><b>2</b> tools</li>
     <li><b>114</b> tests passing</li>
     <li><b>15</b> checks and detection rules</li>
+    <li><b>6</b> lab writeups</li>
     <li><b>0</b> dependencies</li>
   </ul>
 
   <div class="actions">
     <a class="btn primary" href="#projects">See the projects</a>
+    <a class="btn ghost" href="#labs">Lab writeups</a>
     <a class="btn ghost" href="https://drive.google.com/drive/folders/1srtrsu9i6lvEGg4dojatligUGTaoswh3?usp=sharing">Full portfolio (Drive)</a>
   </div>
 </header>
@@ -173,6 +186,65 @@
   </div>
 </section>
 
+<section class="wrap" id="labs">
+  <div class="section-head"><h2>Field work</h2><div class="rule"></div></div>
+
+  <div class="labs">
+
+    <article class="lab">
+      <p class="kicker">Offence</p>
+      <h3><a href="https://github.com/biggjayy2000/labs/blob/main/01-active-directory-reconnaissance.md">Active Directory reconnaissance</a></h3>
+      <p>What a domain controller gives away before anyone authenticates: exposed services, DNS records,
+        anonymous LDAP metadata, and three usernames confirmed over Kerberos.</p>
+      <a class="go" href="https://github.com/biggjayy2000/labs/blob/main/01-active-directory-reconnaissance.md">Read the writeup &rarr;</a>
+    </article>
+
+    <article class="lab">
+      <p class="kicker">Audit</p>
+      <h3><a href="https://github.com/biggjayy2000/labs/blob/main/02-botium-toys-audit.md">Internal security audit</a></h3>
+      <p>Risk-rated a retail security programme at 8/10 and ordered ten fixes so the first one does not
+        depend on the last.</p>
+      <a class="go" href="https://github.com/biggjayy2000/labs/blob/main/02-botium-toys-audit.md">Read the writeup &rarr;</a>
+    </article>
+
+    <article class="lab">
+      <p class="kicker">Incident</p>
+      <h3><a href="https://github.com/biggjayy2000/labs/blob/main/03-nist-csf-dos-analysis.md">NIST CSF analysis of a DoS</a></h3>
+      <p>A two-hour ping flood through an unconfigured firewall, traced through all five CSF functions —
+        the missing control was detection, not prevention.</p>
+      <a class="go" href="https://github.com/biggjayy2000/labs/blob/main/03-nist-csf-dos-analysis.md">Read the writeup &rarr;</a>
+    </article>
+
+    <article class="lab">
+      <p class="kicker">Investigation</p>
+      <h3><a href="https://github.com/biggjayy2000/labs/blob/main/04-sql-login-investigation.md">SQL filtering on login logs</a></h3>
+      <p>Narrowed authentication records with <code>AND</code>, <code>OR</code> and <code>NOT</code>, then
+        joined employee data so a username became a person and a device.</p>
+      <a class="go" href="https://github.com/biggjayy2000/labs/blob/main/04-sql-login-investigation.md">Read the writeup &rarr;</a>
+    </article>
+
+    <article class="lab">
+      <p class="kicker">Access control</p>
+      <h3><a href="https://github.com/biggjayy2000/labs/blob/main/05-linux-file-permissions.md">File permissions in Linux</a></h3>
+      <p>Read permission strings, stripped over-broad access with <code>chmod</code>, and kept the command
+        that failed in the writeup.</p>
+      <a class="go" href="https://github.com/biggjayy2000/labs/blob/main/05-linux-file-permissions.md">Read the writeup &rarr;</a>
+    </article>
+
+    <article class="lab">
+      <p class="kicker">Password security</p>
+      <h3><a href="https://github.com/biggjayy2000/labs/blob/main/06-password-hash-auditing.md">Password hash auditing</a></h3>
+      <p>Recovered a self-created SHA-256 hash in seconds with Hashcat, and wrote down why a fast hash is
+        the wrong place to store a password.</p>
+      <a class="go" href="https://github.com/biggjayy2000/labs/blob/main/06-password-hash-auditing.md">Read the writeup &rarr;</a>
+    </article>
+
+  </div>
+
+  <p style="margin:22px 0 0;font-size:14.5px;color:#667085">All six are in one repository:
+    <a href="https://github.com/biggjayy2000/labs">github.com/biggjayy2000/labs</a>.</p>
+</section>
+
 <section class="wrap">
   <div class="section-head"><h2>How they were built</h2><div class="rule"></div></div>
   <div class="notes">
@@ -205,6 +277,7 @@
     <nav>
       <a href="mailto:shieldsjay1117@gmail.com">shieldsjay1117@gmail.com</a>
       <a href="https://linkedin.com/in/josiah-shields-3a095243a">LinkedIn</a>
+      <a href="https://github.com/biggjayy2000/labs">Labs</a>
       <a href="https://drive.google.com/drive/folders/1srtrsu9i6lvEGg4dojatligUGTaoswh3?usp=sharing">Portfolio</a>
     </nav>
   </div>
