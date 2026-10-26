@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Josiah Shields — Security Portfolio</title>
-<meta name="description" content="Two Python security tools and six lab writeups from the same home lab: a web scanner, a log triage tool, Active Directory reconnaissance, an internal audit, incident analysis and SQL investigation.">
+<meta name="description" content="Four security projects from one home lab: a web scanner and a log triage tool written in Python, a penetration test against OWASP Juice Shop, and an Active Directory enumeration lab — with six written-up exercises.">
 <style>
   :root {
     --ink: #101828;
@@ -106,29 +106,30 @@
 <body>
 
 <header class="hero wrap">
-  <p class="eyebrow">Security tooling &middot; Python</p>
-  <h1>Two tools, one lab.</h1>
-  <p class="lede">A scanner that finds what is wrong with a web application, and a triage tool that
-    detects the traffic those weaknesses leave behind. Built end to end — code, tests, and the
-    report each one produces.</p>
+  <p class="eyebrow">Security tooling &middot; penetration testing</p>
+  <h1>Two tools. Two engagements. One lab.</h1>
+  <p class="lede">A web scanner and a log triage tool I wrote from scratch, plus a penetration test and
+    an Active Directory lab documented request by request. Every finding here has a screenshot behind
+    it.</p>
 
   <ul class="stats">
-    <li><b>2</b> tools</li>
+    <li><b>4</b> projects</li>
     <li><b>114</b> tests passing</li>
-    <li><b>15</b> checks and detection rules</li>
+    <li><b>4</b> confirmed findings</li>
     <li><b>6</b> lab writeups</li>
     <li><b>0</b> dependencies</li>
   </ul>
 
   <div class="actions">
     <a class="btn primary" href="#projects">See the projects</a>
+    <a class="btn ghost" href="https://github.com/biggjayy2000/juice-shop-pentest/blob/main/report/juice-shop-pentest-report.md">Read the pentest report</a>
     <a class="btn ghost" href="#labs">Lab writeups</a>
     <a class="btn ghost" href="https://drive.google.com/drive/folders/1srtrsu9i6lvEGg4dojatligUGTaoswh3?usp=sharing">Full portfolio (Drive)</a>
   </div>
 </header>
 
 <section class="wrap" id="projects">
-  <div class="section-head"><h2>Offence and defence</h2><div class="rule"></div></div>
+  <div class="section-head"><h2>Tools I built</h2><div class="rule"></div></div>
 
   <div class="projects">
 
@@ -186,8 +187,56 @@
   </div>
 </section>
 
+<section class="wrap" id="engagements">
+  <div class="section-head"><h2>Engagements</h2><div class="rule"></div></div>
+
+  <div class="projects">
+
+    <article class="project">
+      <div class="body">
+        <span class="tag offence">Penetration test</span>
+        <h3>OWASP Juice Shop</h3>
+        <p class="tagline">A full engagement against a deliberately vulnerable storefront, written up the
+          way a client would receive it — finding by finding, with the request that proves each one.</p>
+        <ul>
+          <li><b>4 confirmed findings</b>: SQL injection, IDOR, DOM XSS, and a token that survives logout.</li>
+          <li>The injection returns its own SQL query in the error body — schema included.</li>
+          <li>A wildcard CORS config ruled <em>not</em> exploitable, because claims get tested.</li>
+        </ul>
+        <p class="tagline" style="font-size:14px;color:#667085">Kali &middot; Burp Suite &middot; nmap &middot; 20 screenshots &middot; client-ready report</p>
+      </div>
+      <div class="shot"><img src="images/juice-shop-sqli.png" alt="Burp Repeater: the product search error body leaking the full SQL query"></div>
+      <div class="foot">
+        <a href="https://github.com/biggjayy2000/juice-shop-pentest/blob/main/report/juice-shop-pentest-report.md">Read the report &rarr;</a>
+        <a href="https://github.com/biggjayy2000/juice-shop-pentest">Evidence and notes &rarr;</a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="body">
+        <span class="tag defence">Enterprise lab</span>
+        <h3>Active Directory home lab</h3>
+        <p class="tagline">Built a domain controller, then enumerated it from no credentials to
+          authenticated domain access — and wrote down what it gave away at each step.</p>
+        <ul>
+          <li>Six services answered a stranger; RootDSE and an SMB null session before any password.</li>
+          <li>Any domain user can read SYSVOL — extracted a group policy and decoded its settings.</li>
+          <li>Two Kerberos failures diagnosed rather than skipped: clock skew, then an unsupported etype.</li>
+        </ul>
+        <p class="tagline" style="font-size:14px;color:#667085">Server 2025 &middot; Kali &middot; Impacket, NetExec, nmap &middot; 29 screenshots</p>
+      </div>
+      <div class="shot"><img src="images/ad-lab-nmap.png" alt="nmap output: six services open on the DC01 domain controller"></div>
+      <div class="foot">
+        <a href="https://github.com/biggjayy2000/ad-home-lab">See the lab &rarr;</a>
+        <a href="https://github.com/biggjayy2000/labs/blob/main/01-active-directory-reconnaissance.md">One-page summary &rarr;</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
 <section class="wrap" id="labs">
-  <div class="section-head"><h2>Field work</h2><div class="rule"></div></div>
+  <div class="section-head"><h2>Lab writeups</h2><div class="rule"></div></div>
 
   <div class="labs">
 
@@ -241,7 +290,10 @@
 
   </div>
 
-  <p style="margin:22px 0 0;font-size:14.5px;color:#667085">All six are in one repository:
+  <p style="margin:22px 0 0;font-size:14.5px;color:#667085">These six are the strongest of sixteen
+    writeups — the rest, with certificates and coursework, are in the
+    <a href="https://drive.google.com/drive/folders/1srtrsu9i6lvEGg4dojatligUGTaoswh3?usp=sharing">Drive portfolio</a>.
+    The published set lives in one repository:
     <a href="https://github.com/biggjayy2000/labs">github.com/biggjayy2000/labs</a>.</p>
 </section>
 
@@ -250,9 +302,10 @@
   <div class="notes">
     <div>
       <h3>Verified, not just written</h3>
-      <p>114 tests across the two projects, including end-to-end runs: one scans a deliberately
+      <p>114 tests across the two tools, including end-to-end runs: one scans a deliberately
         misconfigured server over a real socket, the other triages a 74-event incident and checks every
-        rule fires.</p>
+        rule fires. The engagements get the same treatment — a screenshot for every claim, and none for
+        what I did not test.</p>
       <h3 style="margin-top:20px">The negative cases matter</h3>
       <p>Every detection has a test proving it stays quiet on normal traffic. A rule that fires on
         everything is not detection; it is noise with a severity label.</p>
@@ -277,6 +330,8 @@
     <nav>
       <a href="mailto:shieldsjay1117@gmail.com">shieldsjay1117@gmail.com</a>
       <a href="https://linkedin.com/in/josiah-shields-3a095243a">LinkedIn</a>
+      <a href="https://github.com/biggjayy2000/ad-home-lab">AD lab</a>
+      <a href="https://github.com/biggjayy2000/juice-shop-pentest">Juice Shop</a>
       <a href="https://github.com/biggjayy2000/labs">Labs</a>
       <a href="https://drive.google.com/drive/folders/1srtrsu9i6lvEGg4dojatligUGTaoswh3?usp=sharing">Portfolio</a>
     </nav>
