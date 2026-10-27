@@ -58,7 +58,8 @@
   .project .tagline { margin: 0 0 14px; font-size: 15.5px; }
   .project ul { margin: 0 0 16px; padding-left: 18px; font-size: 14.5px; }
   .project li { margin-bottom: 6px; }
-  .project .shot { border-top: 1px solid var(--line); background: #f2f4f7; padding: 14px; }
+  .project .shot { border-top: 1px solid var(--line); background: #f2f4f7; padding: 14px;
+                   flex: 1; display: flex; align-items: center; }
   .project .shot img { display: block; width: 100%; border-radius: 8px; }
   .project .foot { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; padding: 0 24px 22px; }
 
@@ -225,7 +226,7 @@
         </ul>
         <p class="tagline" style="font-size:14px;color:#667085">Server 2025 &middot; Kali &middot; Impacket, NetExec, nmap &middot; 29 screenshots</p>
       </div>
-      <div class="shot"><img src="images/ad-lab-nmap.png" alt="nmap output: six services open on the DC01 domain controller"></div>
+      <div class="shot"><img src="images/ad-lab-rootdse.png" alt="Anonymous ldapsearch returning DC01.corp.local and the corp.local naming context before any authentication"></div>
       <div class="foot">
         <a href="https://github.com/biggjayy2000/ad-home-lab">See the lab &rarr;</a>
         <a href="https://github.com/biggjayy2000/labs/blob/main/01-active-directory-reconnaissance.md">One-page summary &rarr;</a>
