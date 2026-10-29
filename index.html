@@ -116,7 +116,7 @@
   <ul class="stats">
     <li><b>4</b> projects</li>
     <li><b>114</b> tests passing</li>
-    <li><b>4</b> confirmed findings</li>
+    <li><b>14</b> confirmed findings</li>
     <li><b>6</b> lab writeups</li>
     <li><b>0</b> dependencies</li>
   </ul>
@@ -198,17 +198,20 @@
         <span class="tag offence">Penetration test</span>
         <h3>OWASP Juice Shop</h3>
         <p class="tagline">A full engagement against a deliberately vulnerable storefront, written up the
-          way a client would receive it — finding by finding, with the request that proves each one.</p>
+          way a client would receive it — then re-tested wider, because the first pass was not the whole
+          surface.</p>
         <ul>
-          <li><b>4 confirmed findings</b>: SQL injection, IDOR, DOM XSS, and a token that survives logout.</li>
-          <li>The injection returns its own SQL query in the error body — schema included.</li>
-          <li>A wildcard CORS config ruled <em>not</em> exploitable, because claims get tested.</li>
+          <li><b>14 confirmed findings</b> across two passes, each with the request that proves it.</li>
+          <li>The login form is SQL-injectable: <code>' OR 1=1--</code> returns an admin session.</li>
+          <li>The search injection dumps the user table — 25 accounts and their MD5 hashes.</li>
+          <li>Registration accepts <code>"role":"admin"</code>; <code>/ftp</code> serves a KeePass database.</li>
         </ul>
-        <p class="tagline" style="font-size:14px;color:#667085">Kali &middot; Burp Suite &middot; nmap &middot; 20 screenshots &middot; client-ready report</p>
+        <p class="tagline" style="font-size:14px;color:#667085">Kali &middot; Burp Suite &middot; nmap &middot; reproducible PoC harness &middot; OWASP/WSTG mapped</p>
       </div>
       <div class="shot"><img src="images/juice-shop-sqli.png" alt="Burp Repeater: the product search error body leaking the full SQL query"></div>
       <div class="foot">
         <a href="https://github.com/biggjayy2000/juice-shop-pentest/blob/main/report/juice-shop-pentest-report.md">Read the report &rarr;</a>
+        <a href="https://github.com/biggjayy2000/juice-shop-pentest/blob/main/report/second-pass-findings.md">Second-pass findings &rarr;</a>
         <a href="https://github.com/biggjayy2000/juice-shop-pentest">Evidence and notes &rarr;</a>
       </div>
     </article>
@@ -222,13 +225,16 @@
         <ul>
           <li>Six services answered a stranger; RootDSE and an SMB null session before any password.</li>
           <li>Any domain user can read SYSVOL — extracted a group policy and decoded its settings.</li>
-          <li>Two Kerberos failures diagnosed rather than skipped: clock skew, then an unsupported etype.</li>
+          <li>Every step mapped to ATT&amp;CK and the Windows event it leaves, including the five that leave
+            none on a default controller.</li>
+          <li>Rebuildable: an idempotent PowerShell script re-creates the domain and checks its own posture.</li>
         </ul>
-        <p class="tagline" style="font-size:14px;color:#667085">Server 2025 &middot; Kali &middot; Impacket, NetExec, nmap &middot; 29 screenshots</p>
+        <p class="tagline" style="font-size:14px;color:#667085">Server 2025 &middot; Kali &middot; Impacket, NetExec, nmap &middot; PowerShell build</p>
       </div>
       <div class="shot"><img src="images/ad-lab-rootdse.png" alt="Anonymous ldapsearch returning DC01.corp.local and the corp.local naming context before any authentication"></div>
       <div class="foot">
         <a href="https://github.com/biggjayy2000/ad-home-lab">See the lab &rarr;</a>
+        <a href="https://github.com/biggjayy2000/ad-home-lab/blob/main/docs/attack-and-detection.md">Detection notes &rarr;</a>
         <a href="https://github.com/biggjayy2000/labs/blob/main/01-active-directory-reconnaissance.md">One-page summary &rarr;</a>
       </div>
     </article>
