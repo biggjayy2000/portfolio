@@ -171,18 +171,57 @@
       </div>
     </article>
 
+    <article class="project">
+      <div class="body">
+        <span class="tag defence">Cloud</span>
+        <h3>iac-audit</h3>
+        <p class="tagline">Reads Terraform and CloudFormation before anything is deployed, and reports
+          the misconfigurations behind most cloud incidents — starting with the bucket anyone can read.</p>
+        <ul>
+          <li>Ten rules across both template languages, one normalised resource model.</li>
+          <li>Open ports graded by what they expose: <code>0.0.0.0/0</code> on all protocols is Critical,
+            on RDP High, on 8080 Medium.</li>
+          <li>Secrets reported by attribute and line only — the value is never printed into the report.</li>
+          <li>Exit code fits CI: <code>--fail-on high</code> fails the build.</li>
+        </ul>
+        <p class="tagline" style="font-size:14px;color:#667085">Python &middot; stdlib only &middot; 10 rules &middot; 51 tests</p>
+      </div>
+      <div class="shot">
+        <pre style="margin:0;width:100%;background:#14181d;color:#d8dee9;border-radius:8px;padding:16px;font-family:'Cascadia Mono',Consolas,monospace;font-size:11.5px;line-height:1.55;overflow:auto"><span style="color:#8b98a8">$ python -m iac_audit examples/vulnerable</span>
+
+<span style="color:#e06c75">[CRITICAL]</span> IAC006  IAM policy grants * on *
+           aws_iam_policy.admin  main.tf:81
+
+<span style="color:#e5c07b">[HIGH]</span>     IAC001  S3 bucket is publicly readable
+           aws_s3_bucket.reports  main.tf:8
+           acl = public-read
+
+<span style="color:#e5c07b">[HIGH]</span>     IAC002  Security group admits the internet
+           aws_security_group.bastion  main.tf:28
+           ingress 0.0.0.0/0 -&gt; SSH (22)
+
+<span style="color:#8b98a8">1 Critical, 7 High, 2 Medium, 1 Low</span></pre>
+      </div>
+      <div class="foot">
+        <a href="https://github.com/biggjayy2000/iac-audit">View the code &rarr;</a>
+        <a href="https://github.com/biggjayy2000/iac-audit/tree/main/examples">Example templates &rarr;</a>
+      </div>
+    </article>
+
   </div>
 
   <div class="connect">
     <h3>Why they belong together</h3>
-    <p>Most junior portfolios show one side. These two share a lab and a point of view: the scanner
-      finds the exposed <code>.git</code> directory and the permissive CORS policy, and the triage tool
-      detects the requests that follow when someone finds them. Building both meant thinking like the
-      attacker and the analyst on the same afternoon.</p>
+    <p>Most junior portfolios show one side. These three share a lab and a point of view: the scanner
+      finds the exposed <code>.git</code> directory and the permissive CORS policy, the triage tool
+      detects the requests that follow when someone finds them, and the IaC audit catches the same class
+      of mistake one layer down — in the template, before there is anything to scan. Building them meant
+      thinking like the attacker, the analyst and the reviewer on the same afternoon.</p>
     <div class="chain">
       <span>probe the app</span><span class="arrow">&rarr;</span>
       <span>find the weakness</span><span class="arrow">&rarr;</span>
       <span>detect the traffic</span><span class="arrow">&rarr;</span>
+      <span>audit the template</span><span class="arrow">&rarr;</span>
       <span>write the report</span>
     </div>
   </div>
